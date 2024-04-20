@@ -5,12 +5,13 @@ export default function Player({ initName, symbol }) {
   const [name, setName] = useState(initName);
 
   function inputChanged(e) {
-    console.log(e.target.value);
+    //console.log(e.target.value);
     setName(e.target.value);
   }
   function handleEditClick() {
     setIsEditing((preState) => !preState);
   }
+
   return (
     <li>
       <span className="player">
@@ -21,7 +22,7 @@ export default function Player({ initName, symbol }) {
         )}
         <span className="player-symbol">{symbol}</span>
       </span>
-      <button onClick={handleEditClick}>Edit</button>
+      <button onClick={handleEditClick}>{isEditing ? "Save" : "Edit"}</button>
     </li>
   );
 }
