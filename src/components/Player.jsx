@@ -1,0 +1,27 @@
+import { useState } from "react";
+
+export default function Player({ initName, symbol }) {
+  const [isEditing, setIsEditing] = useState(false);
+  const [name, setName] = useState(initName);
+
+  function inputChanged(e) {
+    console.log(e.target.value);
+    setName(e.target.value);
+  }
+  function handleEditClick() {
+    setIsEditing((preState) => !preState);
+  }
+  return (
+    <li>
+      <span className="player">
+        {isEditing ? (
+          <input type="text" value={name} onChange={inputChanged} required />
+        ) : (
+          <span className="player-name">{name}</span>
+        )}
+        <span className="player-symbol">{symbol}</span>
+      </span>
+      <button onClick={handleEditClick}>Edit</button>
+    </li>
+  );
+}
