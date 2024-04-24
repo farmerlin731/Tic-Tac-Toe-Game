@@ -1,11 +1,11 @@
-const initGameData = [
-  [null, null, null],
-  [null, null, null],
-  [null, null, null],
-];
+// const initGameData = [
+//   [null, null, null],
+//   [null, null, null],
+//   [null, null, null],
+// ];
 
 // Nested jsx element, u don't need to add the 'return' & '{}' .
-export default function GameBoard({ turnState, handleSquareSelect }) {
+export default function GameBoard({ gameData, handleSquareSelect }) {
   // const [gameData, setGameData] = useState(initGameData);
   // function handleSelect(rowIndex, colIndex) {
   //   setGameData((preData) => {
@@ -16,13 +16,6 @@ export default function GameBoard({ turnState, handleSquareSelect }) {
   //   });
   //   switchPlayer();
   // }
-
-  const gameData = initGameData.map((arr) => arr.map((item) => item));
-  for (const data of turnState) {
-    const { square, player } = data;
-    const { rowIndex, colIndex } = square;
-    gameData[rowIndex][colIndex] = player;
-  }
 
   return (
     <ol id="game-board">
