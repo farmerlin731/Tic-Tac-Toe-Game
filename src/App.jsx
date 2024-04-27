@@ -5,9 +5,10 @@ import GameOver from "./components/GameOver";
 import { WINNING_COMBINATIONS } from "./winning-combinations";
 import { useState } from "react";
 
-// const INIT_PLAYER_NAME = {
-//   X:
-// }
+const INIT_PLAYER_NAME = {
+  X: "Player-1",
+  O: "Player-2",
+};
 
 function deriveActivepPlayer(turnState) {
   let currentPlayer = "X";
@@ -20,7 +21,7 @@ function deriveActivepPlayer(turnState) {
 function App() {
   // const [activePlayer, setActivePlayer] = useState("X");
   const [turnState, setTurnState] = useState([]);
-  // const [playerName, setPlayerName] =
+  const [playerName, setPlayerName] = useState(INIT_PLAYER_NAME);
 
   const activePlayer = deriveActivepPlayer(turnState);
   const gameData = Array.from({ length: 3 }, () => Array(3).fill(null));
@@ -36,7 +37,6 @@ function App() {
     const { rowIndex, colIndex } = square;
     gameData[rowIndex][colIndex] = player;
   }
-  // console.log(WINNING_COMBINATIONS);
 
   WINNING_COMBINATIONS.forEach((winning) => {
     let symbol0 = gameData[winning[0].row][winning[0].column];
@@ -66,18 +66,23 @@ function App() {
       <div id="game-container">
         <ol id="players" className="highlight-player">
           <Player
-            initName="Player-1"
+            initName={playerName.X}
             symbol="X"
             isActive={activePlayer === "X"}
+            setPlayerName={setPlayerName}
           />
           <Player
-            initName="Player-2"
+            initName={playerName.O}
             symbol="O"
             isActive={activePlayer === "O"}
+            setPlayerName={setPlayerName}
           />
         </ol>
         {(winner || isDraw) && (
-          <GameOver winner={winner} handleRematch={() => setTurnState([])} />
+          <GameOver
+            winner={playerName[winner]}
+            handleRematch={() => setTurnState([])}
+          />
         )}
         <GameBoard
           gameData={gameData}
