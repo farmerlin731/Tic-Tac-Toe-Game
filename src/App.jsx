@@ -5,6 +5,10 @@ import GameOver from "./components/GameOver";
 import { WINNING_COMBINATIONS } from "./winning-combinations";
 import { useState } from "react";
 
+// const INIT_PLAYER_NAME = {
+//   X:
+// }
+
 function deriveActivepPlayer(turnState) {
   let currentPlayer = "X";
   if (turnState.length > 0) {
@@ -16,9 +20,11 @@ function deriveActivepPlayer(turnState) {
 function App() {
   // const [activePlayer, setActivePlayer] = useState("X");
   const [turnState, setTurnState] = useState([]);
+  // const [playerName, setPlayerName] =
 
   const activePlayer = deriveActivepPlayer(turnState);
   const gameData = Array.from({ length: 3 }, () => Array(3).fill(null));
+
   //the right way to watch the content of an 'object' if the object will be adjust in this render.
   // gameData.forEach((arr) => arr.forEach((item) => console.log(item)));
   // console.log(gameData);
@@ -70,7 +76,9 @@ function App() {
             isActive={activePlayer === "O"}
           />
         </ol>
-        {(winner || isDraw) && <GameOver winner={winner} />}
+        {(winner || isDraw) && (
+          <GameOver winner={winner} handleRematch={() => setTurnState([])} />
+        )}
         <GameBoard
           gameData={gameData}
           handleSquareSelect={handleSquareSelect}
